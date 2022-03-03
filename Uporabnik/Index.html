@@ -7,18 +7,28 @@
       width:4vw;
       height:20vh;
     }
+    .volan
+    {
+      height:20vh;
+      width:20vw;
+    }
     </style>
 </head>
 <body>
   <canvas id="sklopka" class="pedalo"></canvas>
   <canvas id="bremza" class="pedalo"></canvas>
   <canvas id="plin" class="pedalo"></canvas>
+  <canvas id="volan" class="volan"></canvas>
   <script type="module">
     const socket = new WebSocket('ws://localhost:8080');
     let plin=0;
     let sklopka=0;
     let bremza=0;
     let volan=0;
+
+    let svolan = new Image();
+    svolan.src= "";
+
     socket.onmessage=({data}) =>
     {
       let tmp = JSON.parse(data);
@@ -26,8 +36,8 @@
       sklopka=(tmp["sklopka"]/100);
       bremza=(tmp["bremza"]/100);
       volan=(tmp["volan"]);
-      console.log(plin);
     }
+
     function izrisi(pedalo,vrednost)
     {
       let cp=document.getElementById(pedalo);
@@ -36,6 +46,16 @@
       conp.fillStyle = "#00CC00";
       conp.fillRect(0,cp.height-vrednost*cp.height,cp.width,vrednost*cp.height);
     }
+
+    function izrisivolan()
+    {
+      let cp=document.getElementById(pedalo);
+      let conp =cp.getContext('2d');
+      conp.clearRect(0, 0, cp.width, cp.height);
+      conp.rotate(volan * Math.PI / 180);
+      conp.drawImage(image, dx, dy);
+    }
+
     setInterval(()=>{
         socket.send("plin");
         izrisi("plin",plin);
