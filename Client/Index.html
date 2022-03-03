@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<head>
+    <title>Simulator voznje</title>
+    <style>
+    .pedalo{
+      border:1px solid black;
+      width:4vw;
+      height:20vh;
+    }
+    </style>
+</head>
+<body>
+  <canvas id="sklopka" class="pedalo"></canvas>
+  <canvas id="bremza" class="pedalo"></canvas>
+  <canvas id="plin" class="pedalo"></canvas>
+  <script type="module">
+    const socket = new WebSocket('ws://localhost:8080');
+    let plin=0;
+    let sklopka=0;
+    let bremza=0;
+    let volan=0;
+    socket.onmessage=({data}) =>
+    {
+      let tmp = JSON.parse(data);
+      plin=(tmp["plin"]/100);
+      sklopka=(tmp["sklopka"]/100);
+      bremza=(tmp["bremza"]/100);
+      volan=(tmp["volan"]);
+      console.log(plin);
+    }
+    function izrisi(pedalo,vrednost)
+    {
+      let cp=document.getElementById(pedalo);
+      let conp =cp.getContext('2d');
+      conp.clearRect(0, 0, cp.width, cp.height);
+      conp.fillStyle = "#00CC00";
+      conp.fillRect(0,cp.height-vrednost*cp.height,cp.width,vrednost*cp.height);
+    }
+    setInterval(()=>{
+        socket.send("plin");
+        izrisi("plin",plin);
+        izrisi("bremza",bremza);
+        izrisi("sklopka",sklopka)
+      },20
+    );
+</script>
+</body>
+</html>
