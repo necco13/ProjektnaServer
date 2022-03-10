@@ -9,7 +9,7 @@ const server = new WebSocket.Server({port:'8080'});
 server.on('connection',socket =>
 {
   socket.on('message', podatki => {
-    if(podatki.toString()=="plin")
+    if(podatki.toString()=="podatki")
       socket.send(plin);
   });
 });
