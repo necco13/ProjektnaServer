@@ -19,9 +19,10 @@
   <canvas id="bremza" class="pedalo"></canvas>
   <canvas id="plin" class="pedalo"></canvas>
   <canvas id="volan" class="volan"></canvas>
-  <p id="napaka"></p>
+  <p id="stanje"></p>
   <script type="module">
-    const socket = new WebSocket('ws://localhost:8080');    
+    const socket = new WebSocket('ws://localhost:8080');
+    let povezan=false;
     let plin=0;
     let sklopka=0;
     let bremza=0;
@@ -58,8 +59,26 @@
       conp.drawImage(svolan, 0, 0,svolan.width*razmerje,svolan.height*razmerje);
     }
 
+    function pstanje()
+    {
+      let stanje = document.getElementById("stanje");
+      if(socket.readystate==1)
+        {
+          stanje.innerHTML="Povezava vzpostavljena!";
+          return 1;
+        }
+      else if(socket.readystate==0)
+        stanje.innerHTML="Vzpostavljanje povezave!";
+      else if(socket.readystate==0)
+        stanje.innerHTML="Prekinjanje povezave!";
+      else
+        stanje.innerHTML="Povezava ni vzpostavljena!";
+      return 0;
+            }
     setInterval(()=>{
-        socket.send("podatki");
+        if(pstanje())
+          socket.send("podatki");
+
         izrisi("plin",plin);
         izrisi("bremza",bremza);
         izrisi("sklopka",sklopka)
