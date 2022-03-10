@@ -9,8 +9,8 @@
     }
     .volan
     {
-      height:20vh;
-      width:20vw;
+      height:18vh;
+      width:18vw;
     }
     </style>
 </head>
@@ -19,8 +19,9 @@
   <canvas id="bremza" class="pedalo"></canvas>
   <canvas id="plin" class="pedalo"></canvas>
   <canvas id="volan" class="volan"></canvas>
+  <p id="napaka"></p>
   <script type="module">
-    const socket = new WebSocket('ws://localhost:8080');
+    const socket = new WebSocket('ws://localhost:8080');    
     let plin=0;
     let sklopka=0;
     let bremza=0;
@@ -51,9 +52,10 @@
     {
       let cp=document.getElementById("volan");
       let conp =cp.getContext('2d');
+      let razmerje = Math.min(cp.width / svolan.width, cp.height / svolan.height);
       conp.clearRect(0, 0, cp.width, cp.height);
       conp.rotate(volan * Math.PI / 180);
-      conp.drawImage(svolan, 0, 0);
+      conp.drawImage(svolan, 0, 0,svolan.width*razmerje,svolan.height*razmerje);
     }
 
     setInterval(()=>{
