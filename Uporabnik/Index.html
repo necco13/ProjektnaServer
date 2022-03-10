@@ -27,7 +27,7 @@
     let volan=0;
 
     let svolan = new Image();
-    svolan.src= "";
+    svolan.src= "Slike/volan.png";
 
     socket.onmessage=({data}) =>
     {
@@ -47,13 +47,13 @@
       conp.fillRect(0,cp.height-vrednost*cp.height,cp.width,vrednost*cp.height);
     }
 
-    function izrisivolan()
+    function izrisivolan(volan)
     {
-      let cp=document.getElementById(pedalo);
+      let cp=document.getElementById("volan");
       let conp =cp.getContext('2d');
       conp.clearRect(0, 0, cp.width, cp.height);
       conp.rotate(volan * Math.PI / 180);
-      conp.drawImage(image, dx, dy);
+      conp.drawImage(svolan, 0, 0);
     }
 
     setInterval(()=>{
@@ -61,6 +61,7 @@
         izrisi("plin",plin);
         izrisi("bremza",bremza);
         izrisi("sklopka",sklopka)
+        izrisivolan(volan);
       },20
     );
 </script>
