@@ -82,6 +82,27 @@ function naredic()
 		new THREE.MeshBasicMaterial( { color: 0x282B2A } ));
 	cesta.add(asfalt);
 
+	const crta = new THREE.Mesh(
+		new THREE.BoxGeometry(0.2,1,0.1),
+		new THREE.MeshBasicMaterial( { color: 0xffffff } ));
+		crta.position.y=-1.2;
+		crta.position.z=0.01;
+	cesta.add(crta);
+
+	const crta2 = new THREE.Mesh(
+		new THREE.BoxGeometry(0.2,1,0.1),
+		new THREE.MeshBasicMaterial( { color: 0xffffff } ));
+		crta2.position.z=0.01;
+		crta2.position.y=1.2;
+	cesta.add(crta2);
+
+	const crta3 = new THREE.Mesh(
+		new THREE.BoxGeometry(0.2,1,0.1),
+		new THREE.MeshBasicMaterial( { color: 0xffffff } ));
+		crta3.position.z=0.01;
+		crta3.position.y=3.6;
+	cesta.add(crta3);
+
 	const plocnikl = new THREE.Mesh(
 		new THREE.BoxGeometry(1,10,0.1),
 		new THREE.MeshBasicMaterial( { color: 0x545454 } ));
