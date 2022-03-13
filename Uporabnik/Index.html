@@ -15,76 +15,84 @@
     </style>
 </head>
 <body>
+  <center>
+  <script src="Skripti/three.js"></script>
+  <script src="Skripti/Igrca.js"></script>
+</center>
+  <br />
+
   <canvas id="sklopka" class="pedalo"></canvas>
   <canvas id="bremza" class="pedalo"></canvas>
   <canvas id="plin" class="pedalo"></canvas>
   <canvas id="volan" class="volan"></canvas>
   <p id="stanje"></p>
+
   <script type="module">
-    const socket = new WebSocket('ws://localhost:8080');
-    let povezan=false;
-    let plin=0;
-    let sklopka=0;
-    let bremza=0;
-    let volan=0;
 
-    let svolan = new Image();
-    svolan.src= "Slike/volan.png";
+  const socket = new WebSocket('ws://localhost:8080');
+  let povezan=false;
+  let plin=0;
+  let sklopka=0;
+  let bremza=0;
+  let volan=0;
 
-    socket.onmessage=({data}) =>
-    {
-      let tmp = JSON.parse(data);
-      plin=(tmp["plin"]/100);
-      sklopka=(tmp["sklopka"]/100);
-      bremza=(tmp["bremza"]/100);
-      volan=(tmp["volan"]);
-    }
+  let svolan = new Image();
+  svolan.src= "Slike/volan.png";
 
-    function izrisi(pedalo,vrednost)
-    {
-      let cp=document.getElementById(pedalo);
-      let conp =cp.getContext('2d');
-      conp.clearRect(0, 0, cp.width, cp.height);
-      conp.fillStyle = "#00CC00";
-      conp.fillRect(0,cp.height-vrednost*cp.height,cp.width,vrednost*cp.height);
-    }
+  socket.onmessage=({data}) =>
+  {
+    let tmp = JSON.parse(data);
+    plin=(tmp["plin"]/100);
+    sklopka=(tmp["sklopka"]/100);
+    bremza=(tmp["bremza"]/100);
+    volan=(tmp["volan"]);
+  }
 
-    function izrisivolan(volan)
-    {
-      let cp=document.getElementById("volan");
-      let conp =cp.getContext('2d');
-      let razmerje = Math.min(cp.width / svolan.width, cp.height / svolan.height);
-      conp.clearRect(0, 0, cp.width, cp.height);
-      conp.rotate(volan * Math.PI / 180);
-      conp.drawImage(svolan, 0, 0,svolan.width*razmerje,svolan.height*razmerje);
-    }
+  function izrisi(pedalo,vrednost)
+  {
+    let cp=document.getElementById(pedalo);
+    let conp =cp.getContext('2d');
+    conp.clearRect(0, 0, cp.width, cp.height);
+    conp.fillStyle = "#00CC00";
+    conp.fillRect(0,cp.height-vrednost*cp.height,cp.width,vrednost*cp.height);
+  }
 
-    function pstanje()
-    {
-      let stanje = document.getElementById("stanje");
-      if(socket.readystate==1)
-        {
-          stanje.innerHTML="Povezava vzpostavljena!";
-          return 1;
-        }
-      else if(socket.readystate==0)
-        stanje.innerHTML="Vzpostavljanje povezave!";
-      else if(socket.readystate==0)
-        stanje.innerHTML="Prekinjanje povezave!";
-      else
-        stanje.innerHTML="Povezava ni vzpostavljena!";
-      return 0;
-            }
-    setInterval(()=>{
-        if(pstanje())
-          socket.send("podatki");
+  function izrisivolan(volan)
+  {
+    let cp=document.getElementById("volan");
+    let conp =cp.getContext('2d');
+    let razmerje = Math.min(cp.width / svolan.width, cp.height / svolan.height);
+    conp.clearRect(0, 0, cp.width, cp.height);
+    conp.rotate(volan * Math.PI / 180);
+    conp.drawImage(svolan, 0, 0,svolan.width*razmerje,svolan.height*razmerje);
+  }
 
-        izrisi("plin",plin);
-        izrisi("bremza",bremza);
-        izrisi("sklopka",sklopka)
-        izrisivolan(volan);
-      },20
-    );
-</script>
+  function pstanje()
+  {
+    let stanje = document.getElementById("stanje");
+    if(socket.readystate==1)
+      {
+        stanje.innerHTML="Povezava vzpostavljena!";
+        return 1;
+      }
+    else if(socket.readystate==0)
+      stanje.innerHTML="Vzpostavljanje povezave!";
+    else if(socket.readystate==0)
+      stanje.innerHTML="Prekinjanje povezave!";
+    else
+      stanje.innerHTML="Povezava ni vzpostavljena!";
+    return 0;
+          }
+  setInterval(()=>{
+      if(pstanje())
+        socket.send("podatki");
+
+      izrisi("plin",plin);
+      izrisi("bremza",bremza);
+      izrisi("sklopka",sklopka)
+      izrisivolan(volan);
+    },20
+  );
+  </script>
 </body>
 </html>
