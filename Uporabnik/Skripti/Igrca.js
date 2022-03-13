@@ -83,9 +83,18 @@ function naredic()
 	cesta.add(asfalt);
 
 	const plocnikl = new THREE.Mesh(
-		new THREE.BoxGeometry(5,10,0.1),
-		new THREE.MeshBasicMaterial( { color: 0x282B2A } ));
+		new THREE.BoxGeometry(1,10,0.1),
+		new THREE.MeshBasicMaterial( { color: 0x545454 } ));
+		plocnikl.position.x=3;
+		plocnikl.position.z=0.1;
 	cesta.add(plocnikl);
+
+	const plocnikd = new THREE.Mesh(
+		new THREE.BoxGeometry(1,10,0.1),
+		new THREE.MeshBasicMaterial( { color: 0x545454 } ));
+		plocnikd.position.x=-3;
+		plocnikd.position.z=0.1;
+	cesta.add(plocnikd);
 
 	const trava = new THREE.Mesh(
 		new THREE.BoxGeometry(34,10,0.1),
