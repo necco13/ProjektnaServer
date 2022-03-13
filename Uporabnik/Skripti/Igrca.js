@@ -11,7 +11,7 @@ scena.add(sonce);
 const svetloba = new THREE.AmbientLight( 0xffffff, 0.6);
 scena.add(svetloba);
 
-scena.background = new THREE.Color(0x009933);
+scena.background = new THREE.Color(0x87ceeb);
 
 document.body.appendChild( renderer.domElement );
 
@@ -20,7 +20,8 @@ kamera.position.z = 5;
 kamera.position.y = -5;
 kamera.rotation.x = 1.2;
 
-scena.add(naredia())
+scena.add(naredia());
+scena.add(naredic());
 
 function animate() {
 	requestAnimationFrame( animate );
@@ -67,11 +68,31 @@ function naredia()
 		pkolo.position.y=0.63;
 		pkolo.position.z=-0.2;
 	avto.add(pkolo);
+
+	avto.position.z=0.3;
 		return avto;
 }
 
 function naredic()
 {
+	const cesta = new THREE.Group();
 
+	const asfalt = new THREE.Mesh(
+		new THREE.BoxGeometry(5,10,0.1),
+		new THREE.MeshBasicMaterial( { color: 0x282B2A } ));
+	cesta.add(asfalt);
+
+	const plocnikl = new THREE.Mesh(
+		new THREE.BoxGeometry(5,10,0.1),
+		new THREE.MeshBasicMaterial( { color: 0x282B2A } ));
+	cesta.add(plocnikl);
+
+	const trava = new THREE.Mesh(
+		new THREE.BoxGeometry(34,10,0.1),
+		new THREE.MeshBasicMaterial( { color: 0x008000 } ));
+		trava.position.z=-0.1;
+	cesta.add(trava);
+
+	return cesta;
 
 }
