@@ -16,8 +16,8 @@
 </head>
 <body>
   <center>
-  <script src="Skripti/three.js"></script>
-  <script src="Skripti/Igrca.js"></script>
+  <!--script src="Skripti/three.js"></script>
+  <script src="Skripti/Igrca.js"></script-->
 </center>
   <br />
 
@@ -42,9 +42,9 @@
   socket.onmessage=({data}) =>
   {
     let tmp = JSON.parse(data);
-    plin=(tmp["plin"]/100);
-    sklopka=(tmp["sklopka"]/100);
-    bremza=(tmp["bremza"]/100);
+    plin=(tmp["plin"]);
+    sklopka=(tmp["sklopka"]);
+    bremza=(tmp["bremza"]);
     volan=(tmp["volan"]);
   }
 

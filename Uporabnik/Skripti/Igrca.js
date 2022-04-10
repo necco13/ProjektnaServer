@@ -16,12 +16,12 @@ scena.background = new THREE.Color(0x87ceeb);
 document.body.appendChild( renderer.domElement );
 
 
-kamera.position.z = 5;
+kamera.position.z = 3;
 kamera.position.y = -5;
-kamera.rotation.x = 1.2;
+kamera.rotation.x = 1.3;
 
 scena.add(naredia());
-scena.add(naredic());
+scena.add(naredic(0,0));
 
 function animate() {
 	requestAnimationFrame( animate );
@@ -73,7 +73,7 @@ function naredia()
 		return avto;
 }
 
-function naredic()
+function naredic(x,y)
 {
 	const cesta = new THREE.Group();
 
@@ -122,7 +122,28 @@ function naredic()
 		new THREE.MeshBasicMaterial( { color: 0x008000 } ));
 		trava.position.z=-0.1;
 	cesta.add(trava);
-
+	cesta.position.x=x;
+	cesta.position.y=y;
 	return cesta;
+
+}
+
+function naredid(x,y)
+{
+	const drevo = new THREE.Group();
+
+	const steblo = new THREE.Mesh(
+		new THREE.CylinderGeometry( 0.2, 0.2, 1.15, 12),
+		new THREE.MeshBasicMaterial( { color: 0x53350A } ));
+	drevo.add(steblo);
+
+	const krosnja = new THREE.Mesh(
+		new THREE.SphereGeometry( 3, 3, 16 ),
+		new THREE.MeshBasicMaterial( { color: 0x42692f } ));
+	drevo.add(krosnja);
+
+	drevo.position.x=x;
+	drevo.position.y=y;
+	return drevo;
 
 }
