@@ -24,7 +24,7 @@ int preveri(int izhod)
 }
 int i1,i2,i3,i4;
 void loop() {
-  Serial.println("{\"plin\": "+String(100-(analogRead(A5)-550))+",\"bremza\": "+String(100-(analogRead(A3)-680))+", \"sklopka\":"+String(100-(analogRead(A5)-850))+",\"volan\":"+String(180)+"}");
+  Serial.println("{\"plin\": "+String(100-(analogRead(A5)-560))+",\"bremza\": "+String(100-(analogRead(A3)-690))+", \"sklopka\":"+String(100-(analogRead(A4)-800))+",\"volan\":"+String(180)+"}");
   digitalWrite(2,HIGH);
   digitalWrite(3,LOW);
   i1 = preveri(1);

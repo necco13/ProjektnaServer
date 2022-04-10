@@ -42,10 +42,10 @@
   socket.onmessage=({data}) =>
   {
     let tmp = JSON.parse(data);
-    plin=(tmp["plin"]);
-    sklopka=(tmp["sklopka"]);
-    bremza=(tmp["bremza"]);
-    volan=(tmp["volan"]);
+    plin=(tmp["plin"]/100);
+    sklopka=(tmp["sklopka"]/100);
+    bremza=(tmp["bremza"]/100);
+    volan=(tmp["volan"]/100);
   }
 
   function izrisi(pedalo,vrednost)
@@ -71,20 +71,16 @@
   {
     let stanje = document.getElementById("stanje");
     if(socket.readystate==1)
-      {
         stanje.innerHTML="Povezava vzpostavljena!";
-        return 1;
-      }
     else if(socket.readystate==0)
       stanje.innerHTML="Vzpostavljanje povezave!";
     else if(socket.readystate==0)
       stanje.innerHTML="Prekinjanje povezave!";
     else
       stanje.innerHTML="Povezava ni vzpostavljena!";
-    return 0;
           }
   setInterval(()=>{
-      if(pstanje())
+    pstanje();
         socket.send("podatki");
 
       izrisi("plin",plin);

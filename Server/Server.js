@@ -14,7 +14,6 @@ server.on('connection',socket =>
   socket.on('message', podatki => {
     if(podatki.toString()=="podatki")
       socket.send(pod);
-      console.log(pod);
   });
 });
 
