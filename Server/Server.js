@@ -9,6 +9,7 @@ console.log("dela");
 
 let pod="";
 
+//komunikacija preko websocketa
 server.on('connection',socket =>
 {
   socket.on('message', podatki => {
@@ -18,7 +19,7 @@ server.on('connection',socket =>
 });
 
 
-
+//branje iz serijskega porta
 const parser = new ReadLine();
 port.pipe(parser);
 
