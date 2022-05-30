@@ -9,23 +9,22 @@
     }
     .volan
     {
-      height:18vh;
-      width:18vw;
+      height:11vw;
+      width:11vw;
     }
     </style>
 </head>
 <body>
   <center>
-  <script src="Skripti/three.js"></script>
-  <script src="Skripti/Igrca.js"></script>
+  <!--script src="Skripti/three.js"></script>
+  <script src="Skripti/Igrca.js"></script-->
 </center>
   <br />
 
   <canvas id="sklopka" class="pedalo"></canvas>
   <canvas id="bremza" class="pedalo"></canvas>
   <canvas id="plin" class="pedalo"></canvas>
-  <canvas id="volan" class="volan"></canvas>
-  <p id="stanje"></p>
+  <img src="Slike/volan.png" class="volan" id="volan1"></img>
 
   <script type="module">
 
@@ -35,6 +34,7 @@
   let sklopka=0;
   let bremza=0;
   let volan=0;
+  let rotacija=0;
 
   let svolan = new Image();
   svolan.src= "Slike/volan.png";
@@ -45,11 +45,13 @@
     plin=(tmp["plin"]/100);
     sklopka=(tmp["sklopka"]/100);
     bremza=(tmp["bremza"]/100);
-    volan=(tmp["volan"]/100);
+    volan=(tmp["volan"]);
   }
 
   function izrisi(pedalo,vrednost)
   {
+    if(vrednost>=15)
+      vrednost=0;
     let cp=document.getElementById(pedalo);
     let conp =cp.getContext('2d');
     conp.clearRect(0, 0, cp.width, cp.height);
@@ -59,29 +61,12 @@
 
   function izrisivolan(volan)
   {
-    let cp=document.getElementById("volan");
-    let conp =cp.getContext('2d');
-    let razmerje = Math.min(cp.width / svolan.width, cp.height / svolan.height);
-    conp.clearRect(0, 0, cp.width, cp.height);
-    conp.rotate(volan * Math.PI / 180);
-    conp.drawImage(svolan, 0, 0,svolan.width*razmerje,svolan.height*razmerje);
+    if(volan-rotacija!=0)
+    document.getElementById("volan1").style.transform = "rotate("+ volan.toString()+"deg)";
+    rotacija=volan;
   }
-
-  function pstanje()
-  {
-    let stanje = document.getElementById("stanje");
-    if(socket.readystate==1)
-        stanje.innerHTML="Povezava vzpostavljena!";
-    else if(socket.readystate==0)
-      stanje.innerHTML="Vzpostavljanje povezave!";
-    else if(socket.readystate==0)
-      stanje.innerHTML="Prekinjanje povezave!";
-    else
-      stanje.innerHTML="Povezava ni vzpostavljena!";
-          }
   setInterval(()=>{
-    //pstanje();
-        //socket.send("podatki");
+        socket.send("podatki");
 
       izrisi("plin",plin);
       izrisi("bremza",bremza);

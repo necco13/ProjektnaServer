@@ -41,13 +41,13 @@ void posodobi()
   if(!zac)
   {
   if(pv==15 && tv==0)
-    rotacija+=korak;
-  else if(pv==0 && tv==15)
     rotacija-=korak;
-  else if(pv<tv)
+  else if(pv==0 && tv==15)
     rotacija+=korak;
+  else if(pv<tv)
+    rotacija-=korak;
   else
-  rotacija-=korak;
+  rotacija+=korak;
   }
   else
   zac=false;
@@ -85,11 +85,10 @@ int preverir()
   return vs;
   }
 void loop() {
-  Serial.println("{\"plin\": "+String(map(analogRead(A5)-348,0,120,0,50)*2)+",\"bremza\": "+String(map(analogRead(A3)-205,0,120,0,50)*2)+", \"sklopka\":"+String(map(analogRead(A4),0,130,0,50)*2)+",\"volan\":"+String(rotacija)+"}");
+  Serial.println("{\"plin\": "+String(map(analogRead(A5)-348,0,120,0,33)*3)+",\"bremza\": "+String(map(analogRead(A3)-205,0,120,0,33)*3)+", \"sklopka\":"+String(map(analogRead(A4),0,130,0,33)*3)+",\"volan\":"+String(rotacija)+"}");
   tvolan = preverir();
   if(pvolan != tvolan)
     posodobi();
-
 
 
 }
