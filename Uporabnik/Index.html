@@ -42,9 +42,9 @@
   socket.onmessage=({data}) =>
   {
     let tmp = JSON.parse(data);
-    plin=(tmp["plin"]/100);
-    sklopka=(tmp["sklopka"]/100);
-    bremza=(tmp["bremza"]/100);
+    plin=(tmp["plin"]/90);
+    sklopka=(tmp["sklopka"]/90);
+    bremza=(tmp["bremza"]/90);
     volan=(tmp["volan"]);
   }
   function premakni()
@@ -53,8 +53,6 @@
   }
   function izrisi(pedalo,vrednost)
   {
-    if(vrednost>=15)
-      vrednost=0;
     let cp=document.getElementById(pedalo);
     let conp =cp.getContext('2d');
     conp.clearRect(0, 0, cp.width, cp.height);
@@ -77,8 +75,6 @@
       izrisi("sklopka",sklopka)
       izrisivolan(volan);
     },10
-  );
-
   );
   </script>
 </body>

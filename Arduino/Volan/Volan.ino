@@ -84,8 +84,16 @@ int preverir()
     vs+=0b100;
   return vs;
   }
+  String pripravi(int vrednost)
+  {
+   if(vrednost<18)
+    vrednost=0;
+   return String(vrednost);
+   }
+  
 void loop() {
-  Serial.println("{\"plin\": "+String(map(analogRead(A5)-348,0,120,0,33)*3)+",\"bremza\": "+String(map(analogRead(A3)-205,0,120,0,33)*3)+", \"sklopka\":"+String(map(analogRead(A4),0,130,0,33)*3)+",\"volan\":"+String(rotacija)+"}");
+  
+  Serial.println("{\"plin\": "+pripravi(map(analogRead(A5)-348,0,120,0,33)*3)+",\"bremza\": "+pripravi(map(analogRead(A3)-205,0,120,0,33)*3)+", \"sklopka\":"+pripravi(map(analogRead(A4),0,130,0,33)*3)+",\"volan\":"+String(rotacija)+"}");
   tvolan = preverir();
   if(pvolan != tvolan)
     posodobi();
