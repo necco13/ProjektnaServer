@@ -47,7 +47,10 @@
     bremza=(tmp["bremza"]/100);
     volan=(tmp["volan"]);
   }
+  function premakni()
+  {
 
+  }
   function izrisi(pedalo,vrednost)
   {
     if(vrednost>=15)
@@ -62,8 +65,9 @@
   function izrisivolan(volan)
   {
     if(volan-rotacija!=0)
-    document.getElementById("volan1").style.transform = "rotate("+ volan.toString()+"deg)";
-    rotacija=volan;
+      document.getElementById("volan1").style.transform = "rotate("+ rotacija.toString()+"deg)";
+    rotacija+=(volan-rotacija)*0.04;
+
   }
   setInterval(()=>{
         socket.send("podatki");
@@ -71,8 +75,11 @@
       izrisi("plin",plin);
       izrisi("bremza",bremza);
       izrisi("sklopka",sklopka)
+    },10
+  );
+  setInterval(()=>{
       izrisivolan(volan);
-    },20
+    },10
   );
   </script>
 </body>
