@@ -15,15 +15,17 @@ scena.background = new THREE.Color(0x87ceeb);
 
 document.body.appendChild( renderer.domElement );
 
-const material = new THREE.MeshPhongMaterial( { vertexColors: true } );
+const avto = new THREE.Group();
 
-kamera.position.z = 100;
-kamera.position.y = 400;
-kamera.position.x = 400;
+kamera.position.z = -877;
+kamera.position.y = 100;
+kamera.position.x = 30;
 kamera.rotation.x = 0;
 
-var OBJFile = 'Skripti/Cesta.obj';
-var MTLFile = 'Skripti/Cesta.mtl';
+function nalozi(pot)
+{
+var OBJFile = pot+'.obj';
+var MTLFile = pot+'.mtl';
 new THREE.MTLLoader()
 .load(MTLFile, function (materials) {
     materials.preload();
@@ -38,9 +40,22 @@ new THREE.MTLLoader()
                     child.material.map = texture;
                 }
             });
-            scena.add(object);
+            if(pot=='Modeli/Cesta')
+              scena.add(object);
+            else
+            {
+              object.position.y = 80;
+              avto.add(object);
+            }
         });
 });
+}
+nalozi('Modeli/Cesta');
+nalozi('Modeli/Avto');
+avto.add(kamera);
+avto.position.x=450;
+avto.position.y=-20;
+scena.add(avto);
 function animate() {
 	requestAnimationFrame( animate );
 	renderer.render( scena, kamera );
