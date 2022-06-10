@@ -56,8 +56,10 @@ avto.add(kamera);
 avto.position.x=450;
 avto.position.y=-20;
 scena.add(avto);
-
+avto.rotation.y=(0*Math.PI)/180;
 function animate() {
+  avto.position.z-=10*Math.cos(avto.rotation.y);
+  avto.position.x-=10*Math.sin(avto.rotation.y);
 	requestAnimationFrame( animate );
 	renderer.render( scena, kamera );
 }
