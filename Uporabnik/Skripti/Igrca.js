@@ -17,7 +17,7 @@ document.body.appendChild( renderer.domElement );
 
 const avto = new THREE.Group();
 
-kamera.position.z = -877;
+kamera.position.z = -878;
 kamera.position.y = 100;
 kamera.position.x = 30;
 kamera.rotation.x = 0;
@@ -56,6 +56,7 @@ avto.add(kamera);
 avto.position.x=450;
 avto.position.y=-20;
 scena.add(avto);
+
 function animate() {
 	requestAnimationFrame( animate );
 	renderer.render( scena, kamera );
